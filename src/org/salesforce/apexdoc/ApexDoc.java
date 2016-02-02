@@ -647,5 +647,25 @@ public class ApexDoc {
      *
      * }catch (Exception e){ e.printStackTrace(); } }
      */
-
+    public void writeToVerbos (String verboseMsg) {
+ 
+      BufferedWriter bw = null;
+ 
+      try {
+         // APPEND MODE SET HERE
+         bw = new BufferedWriter(new FileWriter("verboseLog.txt", true));
+     bw.write(verboseMsg);
+     bw.newLine();
+     bw.flush();
+      } catch (IOException ioe) {
+     ioe.printStackTrace();
+      } finally {                       // always close the file
+     if (bw != null) try {
+        bw.close();
+     } catch (IOException ioe2) {
+        // just ignore it
+     }
+      } // end try/catch/finally
+ 
+   }
 }
