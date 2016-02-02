@@ -56,6 +56,7 @@ public class ApexDoc {
         String homefilepath = "";
         String authorfilepath = "";
         String hostedSourceURL = "";
+        boolean verboseFlag = false;
 
         // parse command line parameters
         for (int i = 0; i < args.length; i++) {
@@ -75,7 +76,10 @@ public class ApexDoc {
             } else if (args[i].equalsIgnoreCase("-p")) {
                 String strScope = args[++i];
                 rgstrScope = strScope.split(";");
-            } else {
+            } else if (args[i].equalsIgnoreCase("-v")) {
+                verboseFlag = true;
+            }    
+            else {
                 printHelp();
                 System.exit(-1);
             }
@@ -136,13 +140,14 @@ public class ApexDoc {
     private static void printHelp() {
         System.out.println("ApexDoc - a tool for generating documentation from Salesforce Apex code class files.\n");
         System.out.println("    Invalid Arguments detected.  The correct syntax is:\n");
-        System.out.println("apexdoc -s <source_directory> [-t <target_directory>] [-g <source_url>] [-h <homefile>] [-a <authorfile>] [-p <scope>]\n");
+        System.out.println("apexdoc -s <source_directory> [-t <target_directory>] [-g <source_url>] [-h <homefile>] [-a <authorfile>] [-p <scope>] [-v]\n");
         System.out.println("<source_directory> - The folder location which contains your apex .cls classes");
         System.out.println("<target_directory> - Optional. Specifies your target folder where documentation will be generated.");
         System.out.println("<source_url> - Optional. Specifies a URL where the source is hosted (so ApexDoc can provide links to your source).");
         System.out.println("<homefile> - Optional. Specifies the html file that contains the contents for the home page\'s content area.");
         System.out.println("<authorfile> - Optional. Specifies the text file that contains project information for the documentation header.");
         System.out.println("<scope> - Optional. Semicolon seperated list of scopes to document.  Defaults to 'global;public'. ");
+        System.out.println("-v - Optional. Verbose flag to get detailed logs of the process. File written to current directory. Defaults to false.")
     }
 
     private static TreeMap<String, ClassGroup> createMapGroupNameToClassGroup(ArrayList<ClassModel> cModels,
