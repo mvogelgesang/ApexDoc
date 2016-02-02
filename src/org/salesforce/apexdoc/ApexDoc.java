@@ -103,10 +103,16 @@ public class ApexDoc {
             // but for each class file, there is an xml file we'll ignore.
             // plus we add 2 for the author file and home file loading.
             monitor.beginTask("ApexDoc - documenting your Apex Class files.", (files.size() / 2) * 3 + 2);
+            if (verboseFlag) {
+                writeToVerbose("ApexDoc - documenting your Apex Class files. File size - " + (files.size() / 2) * 3 + 2);
+            }
         }
         // parse each file, creating a class model for it
         for (File fromFile : files) {
             String fromFileName = fromFile.getAbsolutePath();
+            if (verboseFlag) {
+                writeToVerbose("Class File Name  - " + fromFileName);
+            }
             if (fromFileName.endsWith(".cls")) {
                 ClassModel cModel = parseFileContents(fromFileName);
                 if (cModel != null) {
@@ -647,7 +653,7 @@ public class ApexDoc {
      *
      * }catch (Exception e){ e.printStackTrace(); } }
      */
-    public void writeToVerbos (String verboseMsg) {
+    public void writeToVerbose (String verboseMsg) {
  
       BufferedWriter bw = null;
  
